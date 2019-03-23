@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Roshambo</a>
+  </nav>
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="jumbotron">
+          <!-- <h5 class="card-title">IT'S MAIN EVENT TIME</h5> -->
+          <h1 class="display-4">A Classic RPS Game</h1>
+          <p class="lead">Make your choice.</p>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card text-center">
+                <div class="card-header">
+                  <span id="userName">You</span> picked: <strong id="userText">-</strong>
+                </div>
+                <img id="userImg" class="card-img-top" src="assets/images/blue.jpg" alt="Card image cap">
+              </div>
+            </div>
+            <!--
+              <div class="col-sm-2">
+                <h1 class="text-center">VS</h1>
+              </div>
+              -->
+            <div class="col-sm-6">
+              <div class="card text-center">
+                <div class="card-header">
+                  The PC picked: <strong id="compText">-</strong>
+                </div>
+                <img id="compImg" class="card-img-top flipped" src="assets/images/red.jpg"
+                  alt="Card image cap">
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col">
+              <div class="btn-group btn-block " role="group" aria-label="Basic example">
+                <button type="button" id="rBtn" class="btn btn-lg btn-outline-primary">Rock</button>
+                <button type="button" id="pBtn" class="btn btn-lg btn-outline-primary">Paper</button>
+                <button type="button" id="sBtn" class="btn btn-lg btn-outline-primary">Scissors</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <!-- <h5 class="card-title text-center">The Stats</h5> -->
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th scope="row">Round</th>
+                  <td id="roundsText">0</td>
+                </tr>
+                <tr>
+                  <th scope="row">Wins</th>
+                  <td id="winsText">0</td>
+                </tr>
+                <tr>
+                  <th scope="row">Losses</th>
+                  <td id="lossesText">0</td>
+                </tr>
+                <tr>
+                  <th scope="row">Ties</th>
+                  <td id="tiesText">0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <!--
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Welcome!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="assets/images/grandmaster.gif" class="img-fluid" alt="Responsive image">
+          <form class="mt-3">
+            <div class="form-group row">
+              <label for="inputName" class="col-sm-6 col-form-label">What is your name?</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="inputName" placeholder="Sparkles">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button id="playBtn" type="button" class="btn btn-primary">PLAY</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+
+  <script>
+    // Creates an array that lists out all of the options (Rock, Paper, or Scissors).
+    var computerChoices = ["r", "p", "s"];
+    var round = 0,
+      wins = 0,
+      losses = 0,
+      ties = 0
+    var roundsText = document.getElementById('roundsText'),
+      winsText = document.getElementById('winsText'),
+      lossesText = document.getElementById('lossesText'),
+      tiesText = document.getElementById('tiesText')
+    var userText = document.getElementById('userText'),
+      compText = document.getElementById('compText')
+    var userImg = document.getElementById('userImg'),
+      compImg = document.getElementById('compImg')
+    var rBtn = document.getElementById('rBtn'),
+      pBtn = document.getElementById('pBtn'),
+      sBtn = document.getElementById('sBtn')
+    //var playBtn = document.getElementById('playBtn'),
+    //  userName = document.getElementById('userName'),
+    //  inputName = document.getElementById('inputName')
+
+    // This function is run whenever the user presses a key.
+    function playRound(userGuess) {
+
+      // Determines which key was pressed.
+      //var userGuess = event.key;
+
+      // Randomly chooses a choice from the options array. This is the Computer's guess.
+      var compGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+      if (userGuess == compGuess) {
+        // user ties
+        ties += 1
+      } else if (userGuess == 'r' && compGuess == 's') {
+        // user wins
+        wins += 1
+      } else if (userGuess == 'p' && compGuess == 'r') {
+        // user wins
+        wins += 1
+      } else if (userGuess == 's' && compGuess == 'p') {
+        // user wins
+        wins += 1
+      } else {
+        // user loses
+        losses += 1
+      }
+      round += 1
+
+      function prettyGuess(guess) {
+        if (guess === 'r') {
+          return 'ROCK!'
+        } else if (guess === 'p') {
+          return 'PAPER!'
+        } else if (guess === 's') {
+          return 'SCISSORS!'
+        }
+      }
+
+      function getImgUrl(guess) {
+        if (guess === 'r') {
+          return 'assets/images/rock.jpg'
+        } else if (guess === 'p') {
+          return 'assets/images/paper.jpg'
+        } else if (guess === 's') {
+          return 'assets/images/scissors.jpg'
+        }
+      }
+
+      roundsText.textContent = round;
+      winsText.textContent = wins;
+      lossesText.textContent = losses;
+      tiesText.textContent = ties;
+
+      userText.textContent = prettyGuess(userGuess)
+      compText.textContent = prettyGuess(compGuess)
+
+      userImg.src = getImgUrl(userGuess);
+      compImg.src = getImgUrl(compGuess);
+    };
+
+    rBtn.addEventListener("click", function () {
+      playRound('r')
+    });
+    pBtn.addEventListener("click", function () {
+      playRound('p')
+    });
+    sBtn.addEventListener("click", function () {
+      playRound('s')
+    });
+
+    /*
+    playBtn.addEventListener("click", function () {
+      var name = inputName.value
+      if (name !== null && name !== '') {
+        userName.textContent = name + "'s";
+      };
+      $('#myModal').modal('hide')
+    });
+    $('#myModal').modal('show')
+    */
+  </script>
+</body>
+
+</html>
